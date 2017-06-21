@@ -1,5 +1,5 @@
 # BASE OFF THE PYTHON IO CHIPTAINER
-FROM nextthingco/chiptainer_python_io
+FROM nextthingco/chiptainer_alpine
 
 # COPY THE SCRIPT
 COPY talk-to-me.py /
@@ -9,7 +9,6 @@ RUN apk update && \
     # SOUNDCHECK SPECIFIC PACKAGES
     apk add espeak && \
     # STUFF REQUIRED FOR PIP
-    apk add git && \
     apk add gcc && \
     apk add g++ && \
     apk add make && \
@@ -17,7 +16,6 @@ RUN apk update && \
     pip install --upgrade pip && \
     pip install pyttsx && \
     # Remove unneeded packages once build is complete.
-    apk del git && \
     apk del gcc && \
     apk del g++ && \
     apk del make && \

@@ -5,13 +5,18 @@
 
 # MODULE IMPORTS
 import pyttsx
+import threading
 
 # THIS IS RIDICULOUS
 
+block = threading.Event()
+
 # FUNCTIONS
 def say(engine, text):
+    block.set()
     engine.say(text)
     engine.runAndWait()
+    block.clear()
 
 def get_data():
     return raw_input("TYPE quit TO EXIT, OTHERWISE ENTER TEXT: ")
@@ -28,6 +33,8 @@ while not dead:
     if "quit" in dat:
         dead = True
     else:
+        while block.isSet():
+            pass
         say(speaker, dat)
 
 print("FINE, I'LL BE DONE TALKING TO YOU")
